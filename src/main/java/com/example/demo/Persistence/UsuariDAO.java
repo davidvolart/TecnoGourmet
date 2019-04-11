@@ -14,8 +14,8 @@ public class UsuariDAO {
 
 
     private JdbcTemplate jdbcTemplate;
-    private final String FIND_ALL ="SELECT * FROM Usuari";
-    private final String FIND_BY_NAME= "SELECT * FROM Usuari WHERE userName= ?";
+    private final String FIND_ALL = "SELECT * FROM Usuari";
+    private final String FIND_BY_NAME = "SELECT * FROM Usuari WHERE userName= ?";
     private final String INSERT = "insert into Usuari (username, password, punts, reserves_no_presentades) values(?, ?, ?, ?)";
     private final String UPDATE_PASSWORD = "UPDATE Usuari SET password=  WHERE name= ";
 
@@ -27,7 +27,7 @@ public class UsuariDAO {
     };
 
 
-    public  UsuariDAO(JdbcTemplate jdbcTemplate) {
+    public UsuariDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -43,13 +43,13 @@ public class UsuariDAO {
                 usuari.getReserves_no_presentades());
     }
 
-    public int updatePassword(Usuari usuari){
-        return jdbcTemplate.update(UPDATE_PASSWORD,usuari.getPassword(),usuari.getUserName());
+    public int updatePassword(Usuari usuari) {
+        return jdbcTemplate.update(UPDATE_PASSWORD, usuari.getPassword(), usuari.getUserName());
     }
 
 
-    public Usuari findByName(String name){
-        return jdbcTemplate.queryForObject(FIND_BY_NAME,new Object[]{name},mapper);
+    public Usuari findByName(String name) {
+        return jdbcTemplate.queryForObject(FIND_BY_NAME, new Object[]{name}, mapper);
     }
 
 

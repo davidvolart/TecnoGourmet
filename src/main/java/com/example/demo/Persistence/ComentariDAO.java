@@ -13,8 +13,8 @@ public class ComentariDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    private final String INSERT="INSERT INTO Comentari(id_comentari,userName,restaurant,text) values (?,?,?,?)";
-    private final String SELECT_BY_ID="SELECT * FROM Comentari where restaurant= ?";
+    private final String INSERT = "INSERT INTO Comentari(id_comentari,userName,restaurant,text) values (?,?,?,?)";
+    private final String SELECT_BY_ID = "SELECT * FROM Comentari where restaurant= ?";
 
     private final RowMapper<Comentari> mapper = (resultSet, i) -> {
         return new Comentari(
@@ -25,17 +25,16 @@ public class ComentariDAO {
     };
 
 
-
-    public  ComentariDAO(JdbcTemplate jdbcTemplate) {
+    public ComentariDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public int insert(Comentari comentari) {
-        return jdbcTemplate.update(INSERT,comentari.generarID(),comentari.getUsuari(),comentari.getRestaurant(),comentari.getText());
+        return jdbcTemplate.update(INSERT, comentari.generarID(), comentari.getUsuari(), comentari.getRestaurant(), comentari.getText());
     }
 
-    public List<Comentari> findByRestaurant(String nomRestarurant){
-        return jdbcTemplate.query(SELECT_BY_ID, new Object[]{nomRestarurant} , mapper);
+    public List<Comentari> findByRestaurant(String nomRestarurant) {
+        return jdbcTemplate.query(SELECT_BY_ID, new Object[]{nomRestarurant}, mapper);
     }
 
 }

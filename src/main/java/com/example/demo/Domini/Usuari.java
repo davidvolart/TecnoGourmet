@@ -19,62 +19,58 @@ public class Usuari {
     private int punts;
 
 
-
-
-    
-
     @NotNull
     private int reserves_no_presentades;
 
 
-    public Usuari(){
+    public Usuari() {
 
     }
 
-    public Usuari(String nom){
-        this.userName=nom;
+    public Usuari(String nom) {
+        this.userName = nom;
     }
 
-    public Usuari(UsuariBuilder ub){
+    public Usuari(UsuariBuilder ub) {
 
-        this.userName=ub.userName;
-        this.password=ub.password;
-        this.punts=0;
-        this.reserves_no_presentades=0;
+        this.userName = ub.userName;
+        this.password = ub.password;
+        this.punts = 0;
+        this.reserves_no_presentades = 0;
     }
 
 
-    public String getUserName(){
+    public String getUserName() {
         return this.userName;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return this.password;
     }
 
-    public int getPunts(){
+    public int getPunts() {
         return this.punts;
     }
 
-    public int getReserves_no_presentades(){
+    public int getReserves_no_presentades() {
         return this.reserves_no_presentades;
     }
 
-    public void setUserName(String userName){
-        this.userName=userName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 
-    public void setPassword(String password){
-        this.password=password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setPunts(int punts){
-        this.punts=punts;
+    public void setPunts(int punts) {
+        this.punts = punts;
     }
 
-    public void setReserves_no_presentades(int reserves_no_presentades){
-        this.reserves_no_presentades=reserves_no_presentades;
+    public void setReserves_no_presentades(int reserves_no_presentades) {
+        this.reserves_no_presentades = reserves_no_presentades;
     }
 
     @Override
@@ -99,12 +95,12 @@ public class Usuari {
         }
 
         public UsuariBuilder userName(String name) {
-                this.userName = name;
-                return this;
-            }
+            this.userName = name;
+            return this;
+        }
 
-            public UsuariBuilder password(String password) {
-                this.password = password;
+        public UsuariBuilder password(String password) {
+            this.password = password;
             return this;
         }
 

@@ -30,7 +30,7 @@ public class RestaurantDAO {
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
     private final RowMapper<Restaurant> mapper = (resultSet, i) -> {
-        return  new Restaurant(
+        return new Restaurant(
                 resultSet.getString("nom"),
                 resultSet.getString("password"),
                 resultSet.getString("direccio"),
@@ -41,11 +41,11 @@ public class RestaurantDAO {
                 resultSet.getInt("capacitat"),
                 resultSet.getString("foto"),
                 resultSet.getInt("nVots")
-               );
+        );
     };
 
 
-    public  RestaurantDAO(JdbcTemplate jdbcTemplate) {
+    public RestaurantDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -58,39 +58,40 @@ public class RestaurantDAO {
     public int insert(Restaurant restaurant) {
 
         return jdbcTemplate.update(INSERT, restaurant.getNomRestaurant(), restaurant.getPassword(), restaurant.getDireccio(), restaurant.getPoblacio(),
-                0,restaurant.getDescripcio(),restaurant.getNumTelefon(), restaurant.getCapacitat(), restaurant.getFoto(),0);
+                0, restaurant.getDescripcio(), restaurant.getNumTelefon(), restaurant.getCapacitat(), restaurant.getFoto(), 0);
     }
 
-    public int update(Restaurant restaurant){
-        return jdbcTemplate.update(UPDATE,restaurant.getNomRestaurant(), restaurant.getPassword(),restaurant.getDireccio(), restaurant.getPoblacio(),
-                restaurant.getPuntuacio(),restaurant.getDescripcio(),restaurant.getNumTelefon(), restaurant.getCapacitat());
+    public int update(Restaurant restaurant) {
+        return jdbcTemplate.update(UPDATE, restaurant.getNomRestaurant(), restaurant.getPassword(), restaurant.getDireccio(), restaurant.getPoblacio(),
+                restaurant.getPuntuacio(), restaurant.getDescripcio(), restaurant.getNumTelefon(), restaurant.getCapacitat());
     }
 
     public List<Restaurant> findByPoblacio(String poblacio) {
         //instead of using the rowMapper it uses the BeanPropertyRowMapper to fo it authomatically
-        return jdbcTemplate.query(FIND_BY_POBLACIO, new Object[]{poblacio},mapper);
+        return jdbcTemplate.query(FIND_BY_POBLACIO, new Object[]{poblacio}, mapper);
     }
 
     public Restaurant findByName(String nom) {
-        return jdbcTemplate.queryForObject(FIND_BY_RESTAURANT_NAME, new Object[]{nom},mapper);
+        return jdbcTemplate.queryForObject(FIND_BY_RESTAURANT_NAME, new Object[]{nom}, mapper);
     }
 
     public List<Restaurant> findByPuntuacio(double puntuacio) {
         //instead of using the rowMapper it uses the BeanPropertyRowMapper to fo it authomatically
-        return jdbcTemplate.query(FIND_BY_PUNTUACIO, new Object[]{puntuacio},mapper);
+        return jdbcTemplate.query(FIND_BY_PUNTUACIO, new Object[]{puntuacio}, mapper);
     }
 
 
-    public int puntua(String nom, int puntuacio){
+    public int puntua(String nom, int puntuacio) {
 
-        Restaurant aux=findByName(nom);
-        double mitjana=Math.floor(((aux.puntuacio*aux.nVots)+puntuacio)/(aux.nVots+1)*100)/100;
+        Restaurant aux = findByName(nom);
+        double mitjana = Math.floor(((aux.puntuacio * aux.nVots) + puntuacio) / (aux.nVots + 1) * 100) / 100;
 
-        return jdbcTemplate.update(UPDATE,mitjana,aux.nVots+1,nom);
+        return jdbcTemplate.update(UPDATE, mitjana, aux.nVots + 1, nom);
     }
-    public Restaurant validateRestaurant(LogIn logIn){
 
-        List<Restaurant> restaurants = jdbcTemplate.query(FIND_BY_NAME_PASSWORD,new Object[]{logIn.getUsername(),logIn.getPassword()}, mapper);
+    public Restaurant validateRestaurant(LogIn logIn) {
+
+        List<Restaurant> restaurants = jdbcTemplate.query(FIND_BY_NAME_PASSWORD, new Object[]{logIn.getUsername(), logIn.getPassword()}, mapper);
         return restaurants.size() > 0 ? restaurants.get(0) : null;
     }
 
